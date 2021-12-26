@@ -8,6 +8,8 @@ from playsound import playsound
 import random
 import multiprocessing
 import smtplib
+import requests as re 
+import json
 
 
 
@@ -32,7 +34,7 @@ def wish():
         speak('Good afternoon')
     else:
         speak('Good Evening') 
-    speak('I am Baani, how can i help you ')                           #wish function to say good morn
+    speak('I am Clippy, how can i help you ')                           #wish function to say good morn
 
 def takespeech():
     e = sr.Recognizer()
@@ -48,16 +50,20 @@ def takespeech():
         print('Say that again')                                        #speech to text conversation
         return 'None'
     return query
+def newsread():
+    url = "http://newsapi.org/v2/top-headlines?country=in&apiKey=632d6bec70874cad843839749bbea144"
+    res = re.get(url)
+    news = json.loads(res.text)
+    news = news['articles']
+    speak("Today's news is ")
+    for new in news:
+        print(f"{new['title']},\n ")
+        speak(new['title'])
+    # speak('Thank you')
+    return 0
 
-def send_mail(to,content):
-    s = smtplib.SMTP('smtp.gmail.com',587)
-    s.ehlo()
-    s.starttls()
-    # speak('enter your mail passward')
-    # p = input('enter your passward\n')
-    s.login('dassatyabrata557@gmail.com','Satyabrata@10')
-    s.sendmail('dassatyabrata557@gmail.com',to,content)
-    s.close()
+
+
 if __name__ == '__main__':
     wish()
     # takespeech()
@@ -127,13 +133,12 @@ if __name__ == '__main__':
             speak("opening Skype")
             os.system('open ' + path)
         
-        elif 'send' in query:
-            
-                speak('what should i say')
-                content = takespeech()
-                to = 'dassatyabrata557@gmail.com'
-                send_mail(to,content)
-                speak('mail has sent')
+        elif 'news' in query:
+            newsread()
+        else:
+            pass
+        
+        
             # except:
             #     print('sorry there is some problem')
 
