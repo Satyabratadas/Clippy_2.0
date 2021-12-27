@@ -65,7 +65,7 @@ def newsread():
 
 
 if __name__ == '__main__':
-    user = input()
+    user = input('enter your name first')
     speak('Hi')
     speak(user)
     wish()
