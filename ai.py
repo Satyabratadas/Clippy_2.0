@@ -65,6 +65,9 @@ def newsread():
 
 
 if __name__ == '__main__':
+    user = input()
+    speak('Hi')
+    speak(user)
     wish()
     # takespeech()
     while True:
@@ -135,12 +138,12 @@ if __name__ == '__main__':
         
         elif 'news' in query:
             newsread()
-        else:
-            pass
+        elif 'stop' in query:
+            break
+            
         
         
-            # except:
-            #     print('sorry there is some problem')
+            
 
 
 
